@@ -6,6 +6,7 @@ import 'package:kapitor_website/widgets/footer/footer_widget.dart';
 import 'package:kapitor_website/widgets/header/header_widget.dart';
 import 'package:kapitor_website/widgets/hero/hero_device_showcase.dart';
 import 'package:kapitor_website/widgets/hero/hero_section.dart';
+import 'package:kapitor_website/widgets/our_mission/our_mission_section.dart';
 import 'package:kapitor_website/widgets/predictable_value/predictable_value_section.dart';
 import 'package:kapitor_website/widgets/stability_advantage/stability_advantage_section.dart';
 import 'package:kapitor_website/widgets/trust_commitment/trust_commitment_section.dart';
@@ -32,6 +33,7 @@ class HomePage extends StatelessWidget {
             StabilityAdvantageSection(),
             PredictableValueSection(),
             AllInOneAppSection(),
+            OurMissionSection(),
             FooterWidget(),
             // Add more sections here as needed
           ],

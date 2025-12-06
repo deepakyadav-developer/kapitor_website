@@ -20,6 +20,10 @@ class AppImage {
   static const String kphone = '${_basePath}kphone.png';
   static const String appleComputers = '${_basePath}AppleComputers.png';
   static const String app = '${_basePath}app.png';
+  static const String about1 = '${_basePath}about1.png';
+  static const String about2 = '${_basePath}about2.png';
+  static const String iphone12 = '${_basePath}iphone12.png';
+  static const String iphone15 = '${_basePath}iphone15.png';
 
 
   // svg images

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kapitor_website/core/constants/app_color.dart';
 import 'package:kapitor_website/core/constants/image_constants.dart';
 import 'package:kapitor_website/core/utils/app_button.dart';
 import 'package:kapitor_website/core/utils/size.dart';
-import 'package:kapitor_website/core/utils/tap_wrapper.dart';
 import 'package:kapitor_website/core/utils/ts.dart';
 
 class HeaderWidget extends StatelessWidget {
@@ -34,10 +32,15 @@ class HeaderWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // Logo
-        Image.asset(
-          AppImage.kapitorLogo,
-          height: 40,
-          fit: BoxFit.contain,
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/');
+          },
+          child: Image.asset(
+            AppImage.kapitorLogo,
+            height: 40,
+            fit: BoxFit.contain,
+          ),
         ),
         
         // Navigation Items
@@ -45,9 +48,19 @@ class HeaderWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _NavItem(text: 'Home', onTap: () {}),
+              _NavItem(
+                text: 'Home',
+                onTap: () {
+                  Navigator.pushNamed(context, '/');
+                },
+              ),
               const Wbox(24),
-              _NavItem(text: 'About us', onTap: () {}),
+              _NavItem(
+                text: 'About us',
+                onTap: () {
+                  Navigator.pushNamed(context, '/about');
+                },
+              ),
               const Wbox(24),
               _NavItemWithDropdown(text: 'Features', onTap: () {}),
               const Wbox(24),
@@ -90,10 +103,15 @@ class HeaderWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // Logo
-        Image.asset(
-          AppImage.kapitorLogo,
-          height: 32,
-          fit: BoxFit.contain,
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/');
+          },
+          child: Image.asset(
+            AppImage.kapitorLogo,
+            height: 32,
+            fit: BoxFit.contain,
+          ),
         ),
         
         // Menu Icon
