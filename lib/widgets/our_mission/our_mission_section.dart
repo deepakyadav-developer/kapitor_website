@@ -3,25 +3,26 @@ import 'package:kapitor_website/core/constants/image_constants.dart';
 import 'package:kapitor_website/core/utils/size.dart';
 
 class OurMissionSection extends StatelessWidget {
-  const OurMissionSection({Key? key}) : super(key: key);
+  const OurMissionSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isDesktop = constraints.maxWidth >= 900;
-        final isTablet = constraints.maxWidth >= 600 && constraints.maxWidth < 900;
+        final isTablet =
+            constraints.maxWidth >= 600 && constraints.maxWidth < 900;
         final isMobile = constraints.maxWidth < 600;
-        
-        final horizontalPadding = isDesktop 
-            ? constraints.maxWidth * 0.08 
+
+        final horizontalPadding = isDesktop
+            ? constraints.maxWidth * 0.08
             : (isTablet ? 24.0 : 16.0);
         final verticalPadding = isDesktop ? 80.0 : (isTablet ? 60.0 : 40.0);
-        
+
         if (isMobile) {
           return _buildMobileLayout(horizontalPadding, verticalPadding);
         }
-        
+
         return Container(
           padding: EdgeInsets.only(
             left: horizontalPadding,
@@ -41,14 +42,14 @@ class OurMissionSection extends StatelessWidget {
                   children: [
                     // Our mission button
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 1,
-                        ),
+                        border: Border.all(color: Colors.black, width: 1),
                       ),
                       child: Text(
                         'Our mission',
@@ -59,25 +60,25 @@ class OurMissionSection extends StatelessWidget {
                         ),
                       ),
                     ),
-                    
+
                     Hbox(isDesktop ? 32.0 : 24.0),
-                    
+
                     // Main Heading
                     Text(
-                      'Your Bills, Your Coins:\nReimagining Daily\nPayments',
+                      'Building a Transparent, Borderless Financial Ecosystem',
                       style: TextStyle(
-                        fontSize: isDesktop ? 48.0 : (isTablet ? 36.0 : 32.0),
+                        fontSize: isDesktop ? 40.0 : (isTablet ? 36.0 : 30.0),
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                         height: 1.2,
                       ),
                     ),
-                    
+
                     Hbox(isDesktop ? 24.0 : 16.0),
-                    
+
                     // Description
                     Text(
-                      'Empower the world with a transparent, borderless financial system where anyone can bank, invest, trade, and grow wealth — all in one app, powered by stablecoins.',
+                      'To build a transparent, borderless, and intelligence-driven global financial ecosystem where any individual — from a daily user to an institutional investor — can bank, invest, trade, protect, and grow wealth securely using stablecoins. Everyone deserves access to a global financial system that is instant, safe, predictable, and independent of traditional banking limitations.',
                       style: TextStyle(
                         fontSize: isDesktop ? 18.0 : (isTablet ? 16.0 : 14.0),
                         fontWeight: FontWeight.normal,
@@ -88,9 +89,9 @@ class OurMissionSection extends StatelessWidget {
                   ],
                 ),
               ),
-              
+
               Wbox(isDesktop ? 60.0 : 40.0),
-              
+
               // Right Side - Illustration
               Expanded(
                 flex: 1,
@@ -145,19 +146,16 @@ class OurMissionSection extends StatelessWidget {
               );
             },
           ),
-          
+
           Hbox(40.0),
-          
+
           // Our mission button
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
               color: Colors.transparent,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: Colors.black,
-                width: 1,
-              ),
+              border: Border.all(color: Colors.black, width: 1),
             ),
             child: Text(
               'Our mission',
@@ -168,12 +166,12 @@ class OurMissionSection extends StatelessWidget {
               ),
             ),
           ),
-          
+
           Hbox(24.0),
-          
+
           // Main Heading
           Text(
-            'Your Bills, Your Coins:\nReimagining Daily\nPayments',
+            'Building a Transparent,\nBorderless Financial Ecosystem',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 32.0,
@@ -182,12 +180,12 @@ class OurMissionSection extends StatelessWidget {
               height: 1.2,
             ),
           ),
-          
+
           Hbox(16.0),
-          
+
           // Description
           Text(
-            'Empower the world with a transparent, borderless financial system where anyone can bank, invest, trade, and grow wealth — all in one app, powered by stablecoins.',
+            'To build a transparent, borderless, and intelligence-driven global financial ecosystem where any individual — from a daily user to an institutional investor — can bank, invest, trade, protect, and grow wealth securely using stablecoins. Everyone deserves access to a global financial system that is instant, safe, predictable, and independent of traditional banking limitations.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14.0,
@@ -201,4 +199,3 @@ class OurMissionSection extends StatelessWidget {
     );
   }
 }
-

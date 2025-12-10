@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kapitor_website/core/constants/app_color.dart';
-import 'package:kapitor_website/core/constants/image_constants.dart';
 import 'package:kapitor_website/core/utils/app_text.dart';
 import 'package:kapitor_website/core/utils/size.dart';
 import 'package:kapitor_website/core/utils/ts.dart';
 
 class TestimonialSection extends StatefulWidget {
-  const TestimonialSection({Key? key}) : super(key: key);
+  const TestimonialSection({super.key});
 
   @override
   State<TestimonialSection> createState() => _TestimonialSectionState();
@@ -15,17 +14,42 @@ class TestimonialSection extends StatefulWidget {
 class _TestimonialSectionState extends State<TestimonialSection> {
   int _currentIndex = 0;
   final int _totalTestimonials = 5;
+  final PageController _pageController = PageController();
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   void _previousTestimonial() {
-    setState(() {
-      _currentIndex = (_currentIndex - 1) % _totalTestimonials;
-    });
+    if (_currentIndex > 0) {
+      _pageController.previousPage(
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      _pageController.animateToPage(
+        _totalTestimonials - 1,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   void _nextTestimonial() {
-    setState(() {
-      _currentIndex = (_currentIndex + 1) % _totalTestimonials;
-    });
+    if (_currentIndex < _totalTestimonials - 1) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      _pageController.animateToPage(
+        0,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   @override
@@ -33,7 +57,8 @@ class _TestimonialSectionState extends State<TestimonialSection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isDesktop = constraints.maxWidth >= 900;
-        final isTablet = constraints.maxWidth >= 600 && constraints.maxWidth < 900;
+        final isTablet =
+            constraints.maxWidth >= 600 && constraints.maxWidth < 900;
         final isMobile = constraints.maxWidth < 600;
 
         final horizontalPadding = isDesktop
@@ -45,47 +70,76 @@ class _TestimonialSectionState extends State<TestimonialSection> {
           return _buildMobileLayout(horizontalPadding, verticalPadding);
         }
 
-        return Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(
-            horizontal: horizontalPadding,
-            vertical: verticalPadding,
-          ),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(AppImage.about2),
-              fit: BoxFit.cover,
+        return Stack(
+          children: [
+            // Background image in left corner
+            Positioned(
+              left: 0,
+              top: 0,
+              child: Opacity(
+                opacity: 0.3,
+                child: Image.asset(
+                  'assets/images/about2.png',
+                  width: isDesktop ? 300 : 200,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const SizedBox.shrink();
+                  },
+                ),
+              ),
             ),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Left Navigation Arrow
-              _buildNavigationButton(
-                icon: Icons.arrow_back,
-                isActive: false,
-                onTap: _previousTestimonial,
-                isDesktop: isDesktop,
+            // Main content
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: verticalPadding,
               ),
-              
-              Wbox(isDesktop ? 60.0 : 40.0),
-              
-              // Main Content
-              Expanded(
-                child: _buildTestimonialContent(isDesktop, isTablet),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Left Navigation Arrow
+                  _buildNavigationButton(
+                    icon: Icons.arrow_back,
+                    isActive: false,
+                    onTap: _previousTestimonial,
+                    isDesktop: isDesktop,
+                  ),
+
+                  Wbox(isDesktop ? 60.0 : 40.0),
+
+                  // Main Content with PageView
+                  Expanded(
+                    child: SizedBox(
+                      height: isDesktop ? 400 : 350,
+                      child: PageView.builder(
+                        controller: _pageController,
+                        onPageChanged: (index) {
+                          setState(() {
+                            _currentIndex = index;
+                          });
+                        },
+                        itemCount: _totalTestimonials,
+                        itemBuilder: (context, index) {
+                          return _buildTestimonialContent(isDesktop, isTablet);
+                        },
+                      ),
+                    ),
+                  ),
+
+                  Wbox(isDesktop ? 60.0 : 40.0),
+
+                  // Right Navigation Arrow
+                  _buildNavigationButton(
+                    icon: Icons.arrow_forward,
+                    isActive: true,
+                    onTap: _nextTestimonial,
+                    isDesktop: isDesktop,
+                  ),
+                ],
               ),
-              
-              Wbox(isDesktop ? 60.0 : 40.0),
-              
-              // Right Navigation Arrow
-              _buildNavigationButton(
-                icon: Icons.arrow_forward,
-                isActive: true,
-                onTap: _nextTestimonial,
-                isDesktop: isDesktop,
-              ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );
@@ -143,9 +197,9 @@ class _TestimonialSectionState extends State<TestimonialSection> {
             ),
           ],
         ),
-        
+
         Hbox(isDesktop ? 40.0 : 32.0),
-        
+
         // Profile and Attribution
         Row(
           children: [
@@ -158,9 +212,9 @@ class _TestimonialSectionState extends State<TestimonialSection> {
                 shape: BoxShape.circle,
               ),
             ),
-            
+
             Wbox(isDesktop ? 20.0 : 16.0),
-            
+
             // Name and Title
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,9 +236,9 @@ class _TestimonialSectionState extends State<TestimonialSection> {
                 ),
               ],
             ),
-            
+
             const Spacer(),
-            
+
             // Page Indicator
             Row(
               children: [
@@ -224,10 +278,7 @@ class _TestimonialSectionState extends State<TestimonialSection> {
         decoration: BoxDecoration(
           color: isActive ? const Color(0xFF2C2C2C) : Colors.transparent,
           shape: BoxShape.circle,
-          border: Border.all(
-            color: Colors.black,
-            width: 1,
-          ),
+          border: Border.all(color: Colors.black, width: 1),
         ),
         child: Icon(
           icon,
@@ -239,156 +290,192 @@ class _TestimonialSectionState extends State<TestimonialSection> {
   }
 
   Widget _buildMobileLayout(double horizontalPadding, double verticalPadding) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding,
-        vertical: verticalPadding,
-      ),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImage.about2),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Column(
-        children: [
-          // Quote with stylized quotation marks
-          Stack(
-            children: [
-              // Large quotation marks in background
-              Positioned(
-                left: -10,
-                top: -10,
-                child: Text(
-                  '"',
-                  style: TextStyle(
-                    fontSize: 80.0,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey.shade300,
-                    height: 1,
-                  ),
-                ),
-              ),
-              Positioned(
-                right: -10,
-                bottom: -30,
-                child: Text(
-                  '"',
-                  style: TextStyle(
-                    fontSize: 80.0,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey.shade300,
-                    height: 1,
-                  ),
-                ),
-              ),
-              // Quote text
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 30.0,
-                  right: 30.0,
-                  top: 15.0,
-                  bottom: 15.0,
-                ),
-                child: AppText(
-                  'They Meticulously Analyze Our Industry And Target Audience, Enabling Them To Craft Tailored Campaigns That Efficiently Reach And Captivate Our Customers. Their Innovative Ideas And Advanced Techniques Have Kept Us Leading The Pack In The Competitive Landscape.',
-                  style: Ts.regular(
-                    size: 16.0,
-                    color: AppColor.textcolor,
-                  ),
-                ),
-              ),
-            ],
+    return Stack(
+      children: [
+        // Background image in left corner
+        Positioned(
+          left: 0,
+          top: 0,
+          child: Opacity(
+            opacity: 0.3,
+            child: Image.asset(
+              'assets/images/about2.png',
+              width: 150,
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) {
+                return const SizedBox.shrink();
+              },
+            ),
           ),
-          
-          Hbox(32.0),
-          
-          // Profile and Attribution
-          Row(
+        ),
+        // Main content
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding,
+            vertical: verticalPadding,
+          ),
+          child: Column(
             children: [
-              // Profile Picture Placeholder
-              Container(
-                width: 50.0,
-                height: 50.0,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  shape: BoxShape.circle,
+              // PageView for sliding content
+              SizedBox(
+                height: 400,
+                child: PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                  itemCount: _totalTestimonials,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        // Quote with stylized quotation marks
+                        Stack(
+                          children: [
+                            // Large quotation marks in background
+                            Positioned(
+                              left: -10,
+                              top: -10,
+                              child: Text(
+                                '"',
+                                style: TextStyle(
+                                  fontSize: 80.0,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.grey.shade300,
+                                  height: 1,
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              right: -10,
+                              bottom: -30,
+                              child: Text(
+                                '"',
+                                style: TextStyle(
+                                  fontSize: 80.0,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.grey.shade300,
+                                  height: 1,
+                                ),
+                              ),
+                            ),
+                            // Quote text
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 30.0,
+                                right: 30.0,
+                                top: 15.0,
+                                bottom: 15.0,
+                              ),
+                              child: AppText(
+                                'They Meticulously Analyze Our Industry And Target Audience, Enabling Them To Craft Tailored Campaigns That Efficiently Reach And Captivate Our Customers. Their Innovative Ideas And Advanced Techniques Have Kept Us Leading The Pack In The Competitive Landscape.',
+                                style: Ts.regular(
+                                  size: 16.0,
+                                  color: AppColor.textcolor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        Hbox(32.0),
+
+                        // Profile and Attribution
+                        Row(
+                          children: [
+                            // Profile Picture Placeholder
+                            Container(
+                              width: 50.0,
+                              height: 50.0,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade300,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+
+                            Wbox(16.0),
+
+                            // Name and Title
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AppText(
+                                    'Michael Kaizer',
+                                    style: Ts.bold(
+                                      size: 16.0,
+                                      color: AppColor.textcolor,
+                                    ),
+                                  ),
+                                  Hbox(4.0),
+                                  AppText(
+                                    'CEO of Basecamp Corp',
+                                    style: Ts.regular(
+                                      size: 12.0,
+                                      color: Colors.grey.shade600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // Page Indicator
+                            Row(
+                              children: [
+                                AppText(
+                                  (_currentIndex + 1).toString().padLeft(
+                                    2,
+                                    '0',
+                                  ),
+                                  style: Ts.bold(
+                                    size: 16.0,
+                                    color: AppColor.textcolor,
+                                  ),
+                                ),
+                                AppText(
+                                  '/${_totalTestimonials.toString().padLeft(2, '0')}',
+                                  style: Ts.regular(
+                                    size: 16.0,
+                                    color: Colors.grey.shade600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
-              
-              Wbox(16.0),
-              
-              // Name and Title
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText(
-                      'Michael Kaizer',
-                      style: Ts.bold(
-                        size: 16.0,
-                        color: AppColor.textcolor,
-                      ),
-                    ),
-                    Hbox(4.0),
-                    AppText(
-                      'CEO of Basecamp Corp',
-                      style: Ts.regular(
-                        size: 12.0,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              
-              // Page Indicator
+
+              Hbox(32.0),
+
+              // Navigation Arrows
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AppText(
-                    '${(_currentIndex + 1).toString().padLeft(2, '0')}',
-                    style: Ts.bold(
-                      size: 16.0,
-                      color: AppColor.textcolor,
-                    ),
+                  _buildNavigationButton(
+                    icon: Icons.arrow_back,
+                    isActive: false,
+                    onTap: _previousTestimonial,
+                    isDesktop: false,
                   ),
-                  AppText(
-                    '/${_totalTestimonials.toString().padLeft(2, '0')}',
-                    style: Ts.regular(
-                      size: 16.0,
-                      color: Colors.grey.shade600,
-                    ),
+                  Wbox(24.0),
+                  _buildNavigationButton(
+                    icon: Icons.arrow_forward,
+                    isActive: true,
+                    onTap: _nextTestimonial,
+                    isDesktop: false,
                   ),
                 ],
               ),
             ],
           ),
-          
-          Hbox(32.0),
-          
-          // Navigation Arrows
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildNavigationButton(
-                icon: Icons.arrow_back,
-                isActive: false,
-                onTap: _previousTestimonial,
-                isDesktop: false,
-              ),
-              Wbox(24.0),
-              _buildNavigationButton(
-                icon: Icons.arrow_forward,
-                isActive: true,
-                onTap: _nextTestimonial,
-                isDesktop: false,
-              ),
-            ],
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
-

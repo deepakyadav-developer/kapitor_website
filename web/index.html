@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <script>
+    // Configure Flutter web renderer
     window.flutterWebRenderer = "canvaskit";
   </script>
   
@@ -19,6 +20,15 @@
     the `--base-href` argument provided to `flutter build`.
   -->
   <base href="$FLUTTER_BASE_HREF">
+  
+  <script>
+    // Remove # from URLs - Configure path-based routing
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('flutter_service_worker.js');
+      });
+    }
+  </script>
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">

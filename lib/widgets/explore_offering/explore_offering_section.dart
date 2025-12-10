@@ -12,25 +12,24 @@ class ExploreOfferingSection extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isDesktop = constraints.maxWidth >= 900;
-        final isTablet = constraints.maxWidth >= 600 && constraints.maxWidth < 900;
+        final isTablet =
+            constraints.maxWidth >= 600 && constraints.maxWidth < 900;
         final isMobile = constraints.maxWidth < 600;
-        
+
         if (isMobile) {
           return _buildMobileLayout();
         }
-        
+
         return Container(
           width: double.infinity,
-          constraints: BoxConstraints(
-            minHeight: isDesktop ? 600.0 : 500.0,
-          ),
+          constraints: BoxConstraints(minHeight: isDesktop ? 600.0 : 500.0),
           child: IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Left Section - Dark Background
                 Container(
-                  width: isDesktop ? 400.0 : 300.0,
+                  width: isDesktop ? 500.0 : 300.0,
                   color: const Color(0xFF2C2C2C), // Dark background
                   padding: EdgeInsets.all(isDesktop ? 60.0 : 40.0),
                   child: Column(
@@ -38,145 +37,141 @@ class ExploreOfferingSection extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                    AppText(
-                      'All you need in a single platform.',
-                      style: Ts.bold(
-                        size: isDesktop ? 36.0 : 28.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Hbox(isDesktop ? 24.0 : 16.0),
-                    AppText(
-                      'From prototyping to production - develop without switching tabs.',
-                      style: Ts.regular(
-                        size: isDesktop ? 16.0 : 14.0,
-                        color: Colors.grey.shade300,
-                      ),
-                    ),
-                    Hbox(isDesktop ? 40.0 : 32.0),
-                    // Get started button
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: isDesktop ? 32.0 : 24.0,
-                        vertical: isDesktop ? 16.0 : 12.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF26A69A), // Dark teal/green
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: AppText(
-                        'Get started',
-                        style: Ts.semiBold(
-                          size: isDesktop ? 16.0 : 14.0,
+                      AppText(
+                        'All you need in a single platform.',
+                        style: Ts.bold(
+                          size: isDesktop ? 36.0 : 28.0,
                           color: Colors.white,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              
-              // Divider line
-              Container(
-                width: 1,
-                color: Colors.grey.shade300,
-                constraints: const BoxConstraints(
-                  minHeight: 0,
-                ),
-              ),
-              
-              // Middle Section - Cards Stack
-              Expanded(
-                flex: 1,
-                child: Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.all(isDesktop ? 60.0 : 40.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // Horizontal line and heading
-                      Row(
-                        children: [
-                          Container(
-                            width: isDesktop ? 60.0 : 40.0,
-                            height: 2,
-                            color: Colors.grey.shade400,
-                          ),
-                          Wbox(isDesktop ? 16.0 : 12.0),
-                          AppText(
-                            'Explore Our Offering',
-                            style: Ts.bold(
-                              size: isDesktop ? 28.0 : 24.0,
-                              color: AppColor.textcolor,
-                            ),
-                          ),
-                        ],
+                      Hbox(isDesktop ? 24.0 : 16.0),
+                      AppText(
+                        'From prototyping to production - develop without switching tabs.',
+                        style: Ts.regular(
+                          size: isDesktop ? 16.0 : 14.0,
+                          color: Colors.grey.shade300,
+                        ),
                       ),
-                      
                       Hbox(isDesktop ? 40.0 : 32.0),
-                      
-                      // Stacked Cards
-                      Center(
-                        child: SizedBox(
-                          width: isDesktop ? 350.0 : 280.0,
-                          height: isDesktop ? 500.0 : 400.0,
-                          child: _buildCardStack(isDesktop),
+                      // Get started button
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isDesktop ? 32.0 : 24.0,
+                          vertical: isDesktop ? 16.0 : 12.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF26A69A), // Dark teal/green
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: AppText(
+                          'Get started',
+                          style: Ts.semiBold(
+                            size: isDesktop ? 16.0 : 14.0,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              
-              // Divider line
-              Container(
-                width: 1,
-                color: Colors.grey.shade300,
-                constraints: const BoxConstraints(
-                  minHeight: 0,
+
+                // Divider line
+                Container(
+                  width: 1,
+                  color: Colors.grey.shade300,
+                  constraints: const BoxConstraints(minHeight: 0),
                 ),
-              ),
-              
-              // Right Section - Features
-              Expanded(
-                flex: 1,
-                child: Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.all(isDesktop ? 60.0 : 40.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _buildFeatureItem(
-                        title: 'Simple like PhonePe',
-                        description:
-                            'The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.',
-                        isDesktop: isDesktop,
-                        isTablet: isTablet,
-                      ),
-                      Hbox(isDesktop ? 32.0 : 24.0),
-                      _buildFeatureItem(
-                        title: 'Safe like a Private Bank',
-                        description:
-                            'The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.',
-                        isDesktop: isDesktop,
-                        isTablet: isTablet,
-                      ),
-                      Hbox(isDesktop ? 32.0 : 24.0),
-                      _buildFeatureItem(
-                        title: 'Transparent like DeFi',
-                        description:
-                            'The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.',
-                        isDesktop: isDesktop,
-                        isTablet: isTablet,
-                      ),
-                    ],
+
+                // Middle Section - Cards Stack
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.all(isDesktop ? 60.0 : 40.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Horizontal line and heading
+                        Row(
+                          children: [
+                            Container(
+                              width: isDesktop ? 60.0 : 40.0,
+                              height: 2,
+                              color: Colors.grey.shade400,
+                            ),
+                            Wbox(isDesktop ? 16.0 : 12.0),
+                            AppText(
+                              'Explore Our Offering',
+                              style: Ts.bold(
+                                size: isDesktop ? 28.0 : 24.0,
+                                color: AppColor.textcolor,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        Hbox(isDesktop ? 40.0 : 32.0),
+
+                        // Stacked Cards
+                        Center(
+                          child: SizedBox(
+                            width: isDesktop ? 350.0 : 280.0,
+                            height: isDesktop ? 500.0 : 400.0,
+                            child: _buildCardStack(isDesktop),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+
+                // Divider line
+                Container(
+                  width: 1,
+                  color: Colors.grey.shade300,
+                  constraints: const BoxConstraints(minHeight: 0),
+                ),
+
+                // Right Section - Features
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.all(isDesktop ? 60.0 : 40.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildFeatureItem(
+                          title: 'Simple Like US Bank',
+                          description:
+                              'Sending USDT feels like sending a WhatsApp message. Paying bills takes seconds. Investing in gold, stocks, or PPP pools is frictionless. Everything is intuitive, fast, and clean.',
+                          isDesktop: isDesktop,
+                          isTablet: isTablet,
+                        ),
+                        Hbox(isDesktop ? 32.0 : 24.0),
+                        _buildFeatureItem(
+                          title: 'Safe like a Private Bank',
+                          description:
+                              'Multi-sig cold storage, Fireblocks/BitGo-level custody, 100% insured vaults, smart contract risk protection, and dedicated PPP risk engine. Safety is the default environment.',
+                          isDesktop: isDesktop,
+                          isTablet: isTablet,
+                        ),
+                        Hbox(isDesktop ? 32.0 : 24.0),
+                        _buildFeatureItem(
+                          title: 'Transparent like DeFi',
+                          description:
+                              'Live Proof-of-Reserves, vault backing and asset audits, on-chain addresses for verification, PPP allocation & NAV tracking. Users don\'t guess — they see, verify, and confirm.',
+                          isDesktop: isDesktop,
+                          isTablet: isTablet,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         );
@@ -190,7 +185,7 @@ class ExploreOfferingSection extends StatelessWidget {
       children: [
         // Bottom Card - Red/Coral
         Positioned(
-          bottom: 0,
+          top: 0,
           child: Transform.rotate(
             angle: -0.05,
             child: _buildDebitCard(
@@ -203,10 +198,10 @@ class ExploreOfferingSection extends StatelessWidget {
             ),
           ),
         ),
-        
+
         // Middle Card - Teal/Mint Green
         Positioned(
-          bottom: isDesktop ? 40.0 : 30.0,
+          top: isDesktop ? 40.0 : 30.0,
           child: Transform.rotate(
             angle: -0.02,
             child: _buildDebitCard(
@@ -216,10 +211,10 @@ class ExploreOfferingSection extends StatelessWidget {
             ),
           ),
         ),
-        
+
         // Top Card - Dark Grey/Black
         Positioned(
-          bottom: isDesktop ? 80.0 : 60.0,
+          top: isDesktop ? 80.0 : 60.0,
           child: Transform.rotate(
             angle: 0.02,
             child: _buildDebitCard(
@@ -243,7 +238,7 @@ class ExploreOfferingSection extends StatelessWidget {
   }) {
     final cardWidth = isDesktop ? 320.0 : 260.0;
     final cardHeight = isDesktop ? 200.0 : 160.0;
-    
+
     return Container(
       width: cardWidth,
       height: cardHeight,
@@ -300,7 +295,7 @@ class ExploreOfferingSection extends StatelessWidget {
                     ),
                   ],
                 ),
-                
+
                 if (!isBottom) ...[
                   // Chip icon for middle and top cards
                   Container(
@@ -317,7 +312,7 @@ class ExploreOfferingSection extends StatelessWidget {
                     ),
                   ),
                 ],
-                
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -397,19 +392,6 @@ class ExploreOfferingSection extends StatelessWidget {
               ),
             ),
             Wbox(isDesktop ? 12.0 : 8.0),
-            Container(
-              width: iconSize,
-              height: iconSize,
-              decoration: const BoxDecoration(
-                color: Colors.black,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.trending_up,
-                color: Colors.white,
-                size: iconSize * 0.5,
-              ),
-            ),
           ],
         ),
         Hbox(isDesktop ? 12.0 : 8.0),
@@ -439,75 +421,58 @@ class ExploreOfferingSection extends StatelessWidget {
               children: [
                 AppText(
                   'All you need in a single platform.',
-                  style: Ts.bold(
-                    size: 28.0,
-                    color: Colors.white,
-                  ),
+                  style: Ts.bold(size: 28.0, color: Colors.white),
                 ),
                 Hbox(16.0),
                 AppText(
                   'From prototyping to production - develop without switching tabs.',
-                  style: Ts.regular(
-                    size: 14.0,
-                    color: Colors.grey.shade300,
-                  ),
+                  style: Ts.regular(size: 14.0, color: Colors.grey.shade300),
                 ),
                 Hbox(32.0),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFF26A69A),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: AppText(
                     'Get started',
-                    style: Ts.semiBold(
-                      size: 14.0,
-                      color: Colors.white,
-                    ),
+                    style: Ts.semiBold(size: 14.0, color: Colors.white),
                   ),
                 ),
               ],
             ),
           ),
-          
+
           Hbox(40.0),
-          
+
           // Heading
           Row(
             children: [
-              Container(
-                width: 40.0,
-                height: 2,
-                color: Colors.grey.shade400,
-              ),
+              Container(width: 40.0, height: 2, color: Colors.grey.shade400),
               Wbox(12.0),
               AppText(
                 'Explore Our Offering',
-                style: Ts.bold(
-                  size: 24.0,
-                  color: AppColor.textcolor,
-                ),
+                style: Ts.bold(size: 24.0, color: AppColor.textcolor),
               ),
             ],
           ),
-          
+
           Hbox(32.0),
-          
+
           // Stacked Cards
-          SizedBox(
-            width: 280.0,
-            height: 400.0,
-            child: _buildCardStack(false),
-          ),
-          
+          SizedBox(width: 280.0, height: 400.0, child: _buildCardStack(false)),
+
           Hbox(40.0),
-          
+
           // Features
           _buildFeatureItem(
-            title: 'Simple like PhonePe',
+            title: 'Simple Like US Bank',
             description:
-                'The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.',
+                'Sending USDT feels like sending a WhatsApp message. Paying bills takes seconds. Investing in gold, stocks, or PPP pools is frictionless. Everything is intuitive, fast, and clean.',
             isDesktop: false,
             isTablet: false,
           ),
@@ -515,7 +480,7 @@ class ExploreOfferingSection extends StatelessWidget {
           _buildFeatureItem(
             title: 'Safe like a Private Bank',
             description:
-                'The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.',
+                'Multi-sig cold storage, Fireblocks/BitGo-level custody, 100% insured vaults, smart contract risk protection, and dedicated PPP risk engine. Safety is the default environment.',
             isDesktop: false,
             isTablet: false,
           ),
@@ -523,7 +488,7 @@ class ExploreOfferingSection extends StatelessWidget {
           _buildFeatureItem(
             title: 'Transparent like DeFi',
             description:
-                'The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.',
+                'Live Proof-of-Reserves, vault backing and asset audits, on-chain addresses for verification, PPP allocation & NAV tracking. Users don\'t guess — they see, verify, and confirm.',
             isDesktop: false,
             isTablet: false,
           ),
@@ -566,4 +531,3 @@ class _WavyPatternPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
-

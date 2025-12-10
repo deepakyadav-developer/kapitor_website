@@ -42,10 +42,7 @@ class _FeatureCardState extends State<FeatureCard>
       duration: const Duration(milliseconds: 300),
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeInOut,
-      ),
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
   }
 
@@ -61,9 +58,10 @@ class _FeatureCardState extends State<FeatureCard>
       builder: (context, constraints) {
         // Responsive sizing based on available width
         final isSmall = constraints.maxWidth < 350;
-        final isMedium = constraints.maxWidth >= 350 && constraints.maxWidth < 500;
+        final isMedium =
+            constraints.maxWidth >= 350 && constraints.maxWidth < 500;
         final hasBoundedHeight = constraints.maxHeight != double.infinity;
-        
+
         // Responsive values
         final iconSize = isSmall ? 40.0 : 48.0;
         final borderRadius = isSmall ? 16.0 : 24.0;
@@ -73,9 +71,11 @@ class _FeatureCardState extends State<FeatureCard>
         final spacing1 = isSmall ? 16.0 : 24.0;
         final spacing2 = isSmall ? 12.0 : 16.0;
         final spacing3 = isSmall ? 24.0 : 32.0;
-        
+
         // Always white by default, black on hover
-        final hoverBackgroundColor = _isHovered ? AppColor.black : AppColor.white;
+        final hoverBackgroundColor = _isHovered
+            ? AppColor.black
+            : AppColor.white;
         final hoverTextColor = _isHovered ? AppColor.white : AppColor.black;
 
         if (widget.isHorizontal) {
@@ -127,7 +127,7 @@ class _FeatureCardState extends State<FeatureCard>
             ),
           );
         }
-        
+
         return MouseRegion(
           onEnter: (_) {
             setState(() {
@@ -209,10 +209,7 @@ class _FeatureCardState extends State<FeatureCard>
                 ),
                 padding: EdgeInsets.all(iconSize * 0.25),
                 child: widget.iconImage != null
-                    ? Image.asset(
-                        widget.iconImage!,
-                        fit: BoxFit.contain,
-                      )
+                    ? Image.asset(widget.iconImage!, fit: BoxFit.contain)
                     : Icon(
                         widget.iconData ?? Icons.phone_android,
                         color: Colors.white,
@@ -220,7 +217,7 @@ class _FeatureCardState extends State<FeatureCard>
                       ),
               ),
               SizedBox(height: spacing1),
-              
+
               // Title
               Text(
                 widget.title,
@@ -232,7 +229,7 @@ class _FeatureCardState extends State<FeatureCard>
                 ),
               ),
               SizedBox(height: spacing2),
-              
+
               // Description
               Text(
                 widget.description,
@@ -284,10 +281,7 @@ class _FeatureCardState extends State<FeatureCard>
           ),
           padding: EdgeInsets.all(iconSize * 0.25),
           child: widget.iconImage != null
-              ? Image.asset(
-                  widget.iconImage!,
-                  fit: BoxFit.contain,
-                )
+              ? Image.asset(widget.iconImage!, fit: BoxFit.contain)
               : Icon(
                   widget.iconData ?? Icons.phone_android,
                   color: Colors.white,
@@ -295,7 +289,7 @@ class _FeatureCardState extends State<FeatureCard>
                 ),
         ),
         SizedBox(height: spacing1),
-        
+
         // Title
         Text(
           widget.title,
@@ -307,7 +301,7 @@ class _FeatureCardState extends State<FeatureCard>
           ),
         ),
         SizedBox(height: spacing2),
-        
+
         // Description
         Text(
           widget.description,
@@ -318,7 +312,7 @@ class _FeatureCardState extends State<FeatureCard>
           ),
         ),
         SizedBox(height: spacing3),
-        
+
         // Illustration
         hasBoundedHeight
             ? Expanded(
@@ -357,19 +351,20 @@ class FeatureCardsSection extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isDesktop = constraints.maxWidth >= 900;
-        final isTablet = constraints.maxWidth >= 600 && constraints.maxWidth < 900;
+        final isTablet =
+            constraints.maxWidth >= 600 && constraints.maxWidth < 900;
         final isMobile = constraints.maxWidth < 600;
-        
+
         // Calculate responsive padding
-        final horizontalPadding = isDesktop 
-            ? constraints.maxWidth * 0.08 
+        final horizontalPadding = isDesktop
+            ? constraints.maxWidth * 0.08
             : (isTablet ? 24.0 : 16.0);
         final verticalPadding = isDesktop ? 60.0 : (isTablet ? 40.0 : 24.0);
-        
+
         if (isMobile) {
           return _buildMobileLayout(horizontalPadding, verticalPadding);
         }
-        
+
         return Container(
           padding: EdgeInsets.symmetric(
             horizontal: horizontalPadding,
@@ -386,24 +381,27 @@ class FeatureCardsSection extends StatelessWidget {
                     // First Card - USDT Card (White)
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.only(right: isDesktop ? 24.0 : 16.0),
+                        padding: EdgeInsets.only(
+                          right: isDesktop ? 24.0 : 16.0,
+                        ),
                         child: FeatureCard(
                           iconData: Icons.phone_android,
                           title: 'Powered by USDT - Instant, global, stable.',
                           description:
                               'Create a custom card that reflects your unique style and personality. Choose from a range of colors, patterns, and designs to customize the look of your card.',
-                          illustrationImage: AppImage.bitcoin,
+                          illustrationImage: AppImage.home,
                           backgroundColor: AppColor.white,
                           textColor: AppColor.black,
                         ),
                       ),
                     ),
-                    
+
                     // Second Card - Insured & Audited
                     Expanded(
                       child: FeatureCard(
                         iconData: Icons.show_chart,
-                        title: 'Insured & Audited - Full transparency with live Proof-of-Reserves.',
+                        title:
+                            'Insured & Audited - Full transparency with live Proof-of-Reserves.',
                         description:
                             'Track your sending patterns, analyze income or expenses easily, and receive personalized recommendations to optimize your financial habits.',
                         illustrationImage: AppImage.bro,
@@ -414,15 +412,16 @@ class FeatureCardsSection extends StatelessWidget {
                   ],
                 ),
               ),
-              
+
               SizedBox(height: isDesktop ? 24.0 : 16.0),
-              
+
               // Bottom Row - Full width card
               SizedBox(
                 height: isDesktop ? 400.0 : 350.0,
                 child: FeatureCard(
                   iconData: Icons.autorenew,
-                  title: 'AI-Driven Wealth - Smarter yields, better trades, safer finance.',
+                  title:
+                      'AI-Driven Wealth - Smarter yields, better trades, safer finance.',
                   description:
                       'Create a custom card that reflects your unique style and personality. Choose from a range of colors, patterns, and designs to customize the look of your card.',
                   illustrationImage: AppImage.people,
@@ -462,7 +461,7 @@ class FeatureCardsSection extends StatelessWidget {
               ),
             ),
           ),
-          
+
           // Second Card - Insured & Audited
           SizedBox(
             height: 500.0,
@@ -470,7 +469,8 @@ class FeatureCardsSection extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 16.0),
               child: FeatureCard(
                 iconData: Icons.show_chart,
-                title: 'Insured & Audited - Full transparency with live Proof-of-Reserves.',
+                title:
+                    'Insured & Audited - Full transparency with live Proof-of-Reserves.',
                 description:
                     'Track your sending patterns, analyze income or expenses easily, and receive personalized recommendations to optimize your financial habits.',
                 illustrationImage: AppImage.bro,
@@ -479,13 +479,14 @@ class FeatureCardsSection extends StatelessWidget {
               ),
             ),
           ),
-          
+
           // Third Card - AI-Driven Wealth
           SizedBox(
             height: 400.0,
             child: FeatureCard(
               iconData: Icons.autorenew,
-              title: 'AI-Driven Wealth - Smarter yields, better trades, safer finance.',
+              title:
+                  'AI-Driven Wealth - Smarter yields, better trades, safer finance.',
               description:
                   'Create a custom card that reflects your unique style and personality. Choose from a range of colors, patterns, and designs to customize the look of your card.',
               illustrationImage: AppImage.bro,

@@ -11,6 +11,7 @@ class OfferingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
+      endDrawer: HeaderWidget.buildMobileDrawer(context),
       body: SingleChildScrollView(
         child: Column(
           children: const [
@@ -23,4 +24,3 @@ class OfferingPage extends StatelessWidget {
     );
   }
 }
-

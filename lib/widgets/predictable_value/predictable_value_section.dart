@@ -11,18 +11,19 @@ class PredictableValueSection extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isDesktop = constraints.maxWidth >= 900;
-        final isTablet = constraints.maxWidth >= 600 && constraints.maxWidth < 900;
+        final isTablet =
+            constraints.maxWidth >= 600 && constraints.maxWidth < 900;
         final isMobile = constraints.maxWidth < 600;
-        
-        final horizontalPadding = isDesktop 
-            ? constraints.maxWidth * 0.08 
+
+        final horizontalPadding = isDesktop
+            ? constraints.maxWidth * 0.08
             : (isTablet ? 24.0 : 16.0);
         final verticalPadding = isDesktop ? 80.0 : (isTablet ? 60.0 : 40.0);
-        
+
         if (isMobile) {
           return _buildMobileLayout(horizontalPadding, verticalPadding);
         }
-        
+
         return Container(
           padding: EdgeInsets.symmetric(
             horizontal: horizontalPadding,
@@ -48,12 +49,12 @@ class PredictableValueSection extends StatelessWidget {
                         height: 1.2,
                       ),
                     ),
-                    
+
                     Hbox(isDesktop ? 24.0 : 16.0),
-                    
+
                     // Description
                     Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Feugiat nulla suspendisse tortor aene.',
+                      'Kapitor operates with private-banking-grade security: Live Proof-of-Reserves, insurance on principal and custody, independent audit trails, and regulator-level transparency. Users see exactly where money sits, how it moves, and what backs it.',
                       style: TextStyle(
                         fontSize: isDesktop ? 16.0 : (isTablet ? 15.0 : 14.0),
                         fontWeight: FontWeight.normal,
@@ -61,9 +62,9 @@ class PredictableValueSection extends StatelessWidget {
                         height: 1.6,
                       ),
                     ),
-                    
+
                     Hbox(isDesktop ? 40.0 : 32.0),
-                    
+
                     // Features List
                     Column(
                       children: [
@@ -92,9 +93,9 @@ class PredictableValueSection extends StatelessWidget {
                   ],
                 ),
               ),
-              
+
               Wbox(isDesktop ? 60.0 : 40.0),
-              
+
               // Right Side - Laptop Image
               Expanded(
                 flex: 1,
@@ -114,7 +115,11 @@ class PredictableValueSection extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: const Center(
-                          child: Icon(Icons.laptop, size: 100, color: Colors.grey),
+                          child: Icon(
+                            Icons.laptop,
+                            size: 100,
+                            color: Colors.grey,
+                          ),
                         ),
                       );
                     },
@@ -136,7 +141,7 @@ class PredictableValueSection extends StatelessWidget {
   }) {
     final iconSize = isDesktop ? 48.0 : (isTablet ? 42.0 : 40.0);
     final titleSize = isDesktop ? 18.0 : (isTablet ? 17.0 : 16.0);
-    
+
     return Row(
       children: [
         Container(
@@ -178,7 +183,7 @@ class PredictableValueSection extends StatelessWidget {
     final iconSize = isDesktop ? 48.0 : (isTablet ? 42.0 : 40.0);
     final titleSize = isDesktop ? 18.0 : (isTablet ? 17.0 : 16.0);
     final textSize = isDesktop ? 16.0 : (isTablet ? 14.0 : 13.0);
-    
+
     return Row(
       children: [
         Container(
@@ -242,9 +247,9 @@ class PredictableValueSection extends StatelessWidget {
               );
             },
           ),
-          
+
           Hbox(40.0),
-          
+
           // Main Heading
           Text(
             'Beyond Volatility: Predictable Digital Value',
@@ -256,12 +261,12 @@ class PredictableValueSection extends StatelessWidget {
               height: 1.2,
             ),
           ),
-          
+
           Hbox(16.0),
-          
+
           // Description
           Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Feugiat nulla suspendisse tortor aene.',
+            'Kapitor operates with private-banking-grade security: Live Proof-of-Reserves, insurance on principal and custody, independent audit trails, and regulator-level transparency. Users see exactly where money sits, how it moves, and what backs it.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14.0,
@@ -270,9 +275,9 @@ class PredictableValueSection extends StatelessWidget {
               height: 1.6,
             ),
           ),
-          
+
           Hbox(32.0),
-          
+
           // Features List
           Column(
             children: [
@@ -303,4 +308,3 @@ class PredictableValueSection extends StatelessWidget {
     );
   }
 }
-

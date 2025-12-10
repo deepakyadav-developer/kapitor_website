@@ -3,25 +3,26 @@ import 'package:kapitor_website/core/constants/app_color.dart';
 import 'package:kapitor_website/core/constants/image_constants.dart';
 
 class StabilityAdvantageSection extends StatelessWidget {
-  const StabilityAdvantageSection({Key? key}) : super(key: key);
+  const StabilityAdvantageSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isDesktop = constraints.maxWidth >= 900;
-        final isTablet = constraints.maxWidth >= 600 && constraints.maxWidth < 900;
+        final isTablet =
+            constraints.maxWidth >= 600 && constraints.maxWidth < 900;
         final isMobile = constraints.maxWidth < 600;
-        
-        final horizontalPadding = isDesktop 
-            ? constraints.maxWidth * 0.08 
+
+        final horizontalPadding = isDesktop
+            ? constraints.maxWidth * 0.08
             : (isTablet ? 24.0 : 16.0);
         final verticalPadding = isDesktop ? 80.0 : (isTablet ? 60.0 : 40.0);
-        
+
         if (isMobile) {
           return _buildMobileLayout(horizontalPadding, verticalPadding);
         }
-        
+
         return Container(
           padding: EdgeInsets.symmetric(
             horizontal: horizontalPadding,
@@ -53,9 +54,9 @@ class StabilityAdvantageSection extends StatelessWidget {
                   ],
                 ),
               ),
-              
+
               SizedBox(width: isDesktop ? 60.0 : 40.0),
-              
+
               // Right Side - Content
               Expanded(
                 flex: 1,
@@ -73,12 +74,12 @@ class StabilityAdvantageSection extends StatelessWidget {
                         height: 1.2,
                       ),
                     ),
-                    
+
                     SizedBox(height: isDesktop ? 24.0 : 16.0),
-                    
+
                     // Description
                     Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Feugiat nulla suspendisse tortor aene.',
+                      'USDT makes Kapitor work everywhere — letting you pay anyone instantly, earn yields 24/7, move money cross-chain, and bypass banking delays. Your financial life becomes fluid, global, and always on.',
                       style: TextStyle(
                         fontSize: isDesktop ? 16.0 : (isTablet ? 15.0 : 14.0),
                         fontWeight: FontWeight.normal,
@@ -86,9 +87,9 @@ class StabilityAdvantageSection extends StatelessWidget {
                         height: 1.6,
                       ),
                     ),
-                    
+
                     SizedBox(height: isDesktop ? 40.0 : 32.0),
-                    
+
                     // Features List
                     Column(
                       children: [
@@ -114,37 +115,34 @@ class StabilityAdvantageSection extends StatelessWidget {
                         ),
                       ],
                     ),
-                    
+
                     SizedBox(height: isDesktop ? 40.0 : 32.0),
-                    
-                    // Green Credit Card (positioned at bottom right)
+
+                    // Boost Card (positioned at bottom right)
                     Align(
                       alignment: Alignment.bottomRight,
-                      child: Container(
+                      child: Image.asset(
+                        AppImage.boostCard,
                         width: isDesktop ? 120.0 : 100.0,
                         height: isDesktop ? 75.0 : 62.0,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF4CAF50),
-                          borderRadius: BorderRadius.circular(12.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            width: isDesktop ? 120.0 : 100.0,
+                            height: isDesktop ? 75.0 : 62.0,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF4CAF50),
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
-                          ],
-                        ),
-                        child: Center(
-                          child: Text(
-                            'VISA',
-                            style: TextStyle(
-                              fontSize: isDesktop ? 18.0 : 16.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              letterSpacing: 2,
+                            child: const Center(
+                              child: Icon(
+                                Icons.credit_card,
+                                color: Colors.white,
+                                size: 32,
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
                     ),
                   ],
@@ -165,7 +163,7 @@ class StabilityAdvantageSection extends StatelessWidget {
   }) {
     final iconSize = isDesktop ? 48.0 : (isTablet ? 42.0 : 40.0);
     final titleSize = isDesktop ? 18.0 : (isTablet ? 17.0 : 16.0);
-    
+
     return Row(
       children: [
         Container(
@@ -176,11 +174,7 @@ class StabilityAdvantageSection extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
           ),
           padding: EdgeInsets.all(iconSize * 0.25),
-          child: Icon(
-            icon,
-            color: Colors.white,
-            size: iconSize * 0.5,
-          ),
+          child: Icon(icon, color: Colors.white, size: iconSize * 0.5),
         ),
         SizedBox(width: isDesktop ? 16.0 : 12.0),
         Expanded(
@@ -221,9 +215,9 @@ class StabilityAdvantageSection extends StatelessWidget {
               );
             },
           ),
-          
+
           const SizedBox(height: 40.0),
-          
+
           // Main Heading
           Text(
             'The Stability Advantage: Trade Without Fear',
@@ -235,12 +229,12 @@ class StabilityAdvantageSection extends StatelessWidget {
               height: 1.2,
             ),
           ),
-          
+
           const SizedBox(height: 16.0),
-          
+
           // Description
           Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Feugiat nulla suspendisse tortor aene.',
+            'USDT makes Kapitor work everywhere — letting you pay anyone instantly, earn yields 24/7, move money cross-chain, and bypass banking delays. Your financial life becomes fluid, global, and always on.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14.0,
@@ -249,9 +243,9 @@ class StabilityAdvantageSection extends StatelessWidget {
               height: 1.6,
             ),
           ),
-          
+
           const SizedBox(height: 32.0),
-          
+
           // Features List
           Column(
             children: [
@@ -277,19 +271,34 @@ class StabilityAdvantageSection extends StatelessWidget {
               ),
             ],
           ),
-          
+
           const SizedBox(height: 32.0),
-          
-          // Green Credit Card
+
+          // Boost Card
           Align(
             alignment: Alignment.center,
-            child: Container(
+            child: Image.asset(
+              AppImage.boostCard,
               width: 100.0,
               height: 62.0,
-             
-              child: Center(
-                child: Image.asset(AppImage.boostCard, width: 100, height: 100),
-              ),
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  width: 100.0,
+                  height: 62.0,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF4CAF50),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.credit_card,
+                      color: Colors.white,
+                      size: 32,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -297,4 +306,3 @@ class StabilityAdvantageSection extends StatelessWidget {
     );
   }
 }
-
